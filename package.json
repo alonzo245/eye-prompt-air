@@ -1,0 +1,52 @@
+{
+  "name": "even-hub-app",
+  "version": "1.0.3",
+  "description": "App built with @evenrealities/even_hub_sdk",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit",
+    "qr": "evenhub qr",
+    "qr:local": "evenhub qr --url http://192.168.68.107:3000",
+    "login": "evenhub login",
+    "logout": "evenhub logout",
+    "list": "evenhub list",
+    "connect": "evenhub connect",
+    "disconnect": "evenhub disconnect",
+    "status": "evenhub status",
+    "help": "evenhub help",
+    "version": "evenhub version",
+    "pack": "node -e \"const fs=require('fs');['dist/fonts','dist/assets'].forEach(p=>{if(fs.existsSync(p))fs.readdirSync(p).forEach(f=>fs.copyFileSync(p+'/'+f,'dist/'+f));});\" && evenhub pack app.json ./dist --output eye-prompt-g2.ehpk",
+    "init": "evenhub init",
+    "emulator": "evenhub-simulator http://192.168.68.107:3000"
+  },
+  "dependencies": {
+    "@evenrealities/even_hub_sdk": "^0.0.10",
+    "@evenrealities/evenhub-cli": "^0.1.13",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "bcryptjs": "^3.0.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "even-toolkit": "^1.7.2",
+    "qrcode": "^1.5.4",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "tailwind-merge": "^3.5.0"
+  },
+  "devDependencies": {
+    "@evenrealities/evenhub-simulator": "^0.7.3",
+    "@types/node": "^25.6.0",
+    "@types/qrcode": "^1.5.6",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.9"
+  },
+  "engines": {
+    "node": "^20.0.0 || >=22.0.0"
+  }
+}

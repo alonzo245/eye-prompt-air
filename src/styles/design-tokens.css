@@ -1,0 +1,81 @@
+/**
+ * Even OS 2.0 Design Tokens – Web view
+ * Color Palette - APP, Iconography, Display constraints (G1)
+ * Dark theme variant for app shell; use TC/BC/SC for consistency.
+ */
+
+:root {
+  /* Text colors (TC) */
+  --tc-highlight: #ffffff;
+  --tc-1st: #232323;
+  --tc-2nd: #7d7d7d;
+  --tc-red: #ff5454;
+  --tc-green: #44b95b;
+  --tc-accent: #232323;
+
+  /* Background colors (BC) – dark shell */
+  --bc-highlight: #232323;
+  --bc-1st: #ffffff;
+  --bc-2nd: #f0f0f0;
+  --bc-3rd: #eeeeee;
+  --bc-4th: #e4e4e4;
+  --bc-accent: #fbef9b;
+
+  /* App dark theme overrides (main canvas) */
+  --app-bg: #121212;
+  --app-surface: #1e1e1e;
+  --app-border: #333333;
+  --app-border-hover: #555555;
+
+  /* Text on dark */
+  --app-tc-primary: #e0e0e0;
+  --app-tc-secondary: #999999;
+  --app-tc-muted: #bbbbbb;
+
+  /* Shaded (SC) – overlays & inputs */
+  --sc-overlay: rgba(0, 0, 0, 0.5);
+  --sc-input-bg: rgba(35, 35, 35, 0.08);
+
+  /* Dark theme input background (8% on dark) */
+  --app-input-bg: #2a2a2a;
+  --app-input-border: #444444;
+  --app-input-focus: #667eea;
+
+  /* Buttons – Even OS style */
+  --btn-primary-bg: var(--bc-highlight);
+  --btn-primary-tc: var(--tc-highlight);
+  --btn-secondary-bg: #444444;
+  --btn-secondary-tc: var(--app-tc-primary);
+  --btn-danger-bg: #d32f2f;
+  --btn-danger-tc: var(--tc-highlight);
+  --btn-danger-hover: #c62828;
+
+  /* Error / warning / success */
+  --color-error: var(--tc-red);
+  --color-success: var(--tc-green);
+  --color-warning-bg: rgba(251, 239, 155, 0.2);
+  --color-warning-border: #fbef9b;
+
+  /* Typography */
+  --font-stack: 'Rubik', 'Noto Sans Hebrew', -apple-system, BlinkMacSystemFont, sans-serif;
+  --title-size: 28px;
+  --title-size-sm: 18px;
+  --body-size: 14px;
+  --body-size-lg: 16px;
+  --caption-size: 12px;
+
+  /* Spacing & radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 20px;
+  --space-xl: 24px;
+
+  /* Constraints (G1 reference) */
+  --max-title-chars: 50;
+  --max-container-name-chars: 16;
+  --content-max-startup: 1000;
+  --content-max-upgrade: 2000;
+}

@@ -1,0 +1,363 @@
+/* Show Creator – Even OS 2.0: Forms (inputs, labels, error states, 0/2000 count) */
+
+.show-creator {
+  padding: var(--space-lg);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.creator-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-xl);
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.creator-header h1 {
+  margin: 0;
+  font-size: var(--title-size);
+  font-weight: 700;
+  color: var(--app-tc-primary);
+}
+
+.creator-actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.creator-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.creator-section {
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+}
+
+.creator-section h3 {
+  margin: 0 0 var(--space-md) 0;
+  font-size: var(--title-size-sm);
+  font-weight: 600;
+  color: var(--app-tc-primary);
+}
+
+/* Labels – TC-2nd for secondary */
+.creator-section label,
+.control-group label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.creator-section label span,
+.control-group label span {
+  color: var(--app-tc-muted);
+  font-size: var(--body-size);
+}
+
+/* Inputs – SC-2nd style (8% shaded); error state = red border + message */
+.creator-section input[type="text"],
+.creator-section textarea,
+.control-group select {
+  background: var(--app-input-bg);
+  border: 1px solid var(--app-input-border);
+  border-radius: var(--radius-sm);
+  padding: 10px var(--space-sm);
+  color: var(--app-tc-primary);
+  font-size: var(--body-size-lg);
+  font-family: var(--font-stack);
+  transition: border-color 0.2s;
+}
+
+.creator-section input[type="text"]:focus,
+.creator-section textarea:focus,
+.control-group select:focus {
+  outline: none;
+  border-color: var(--app-input-focus);
+}
+
+.creator-section input.input-error,
+.creator-section textarea.input-error {
+  border-color: var(--color-error);
+}
+
+.creator-section .input-error-message,
+.control-group .input-error-message {
+  font-size: var(--body-size);
+  color: var(--color-error);
+  margin-top: var(--space-xs);
+}
+
+.creator-section textarea,
+.creator-content-textarea {
+  resize: vertical;
+  min-height: 200px;
+}
+
+/* Textarea section: header with fullscreen toggle */
+.creator-textarea-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.creator-textarea-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.creator-textarea-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.creator-textarea-label span {
+  margin: 0;
+}
+
+.creator-fullscreen-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--app-input-bg);
+  border: 1px solid var(--app-input-border);
+  border-radius: var(--radius-sm);
+  color: var(--app-tc-secondary);
+  font-size: var(--caption-size);
+  font-family: var(--font-stack);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
+}
+
+.creator-fullscreen-toggle:hover {
+  border-color: var(--app-input-focus);
+  color: var(--app-tc-primary);
+}
+
+.creator-fullscreen-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.creator-fullscreen-text {
+  display: none;
+}
+
+@media (min-width: 480px) {
+  .creator-fullscreen-text {
+    display: inline;
+  }
+}
+
+/* Fullscreen mode: overlay with large textarea */
+.creator-textarea-wrap.creator-textarea-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  margin: 0;
+  padding: var(--space-lg);
+  border-radius: 0;
+  background: var(--app-bg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  overflow: hidden;
+}
+
+.creator-textarea-fullscreen .creator-content-textarea {
+  flex: 1;
+  min-height: 0;
+  resize: none;
+  font-size: var(--body-size-lg);
+}
+
+/* Character count – 0/2000 (content max textContainerUpgrade) */
+.creator-section .char-count {
+  font-size: var(--caption-size);
+  color: var(--app-tc-secondary);
+  text-align: left;
+  margin-top: var(--space-xs);
+}
+
+.creator-section .char-count.at-limit {
+  color: var(--color-error);
+}
+
+/* Current slide validation row (above textarea) */
+.creator-current-slide-validation {
+  display: block;
+  font-size: var(--caption-size);
+  color: var(--app-tc-secondary);
+  margin-bottom: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--app-input-bg);
+  border: 1px solid var(--app-input-border);
+  border-radius: var(--radius-sm);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.creator-current-slide-validation--over {
+  color: var(--color-error);
+  border-color: var(--color-error);
+  background: rgba(var(--color-error-rgb, 200, 50, 50), 0.06);
+}
+
+/* Per-slide overflow: textarea border when any slide exceeds max chars */
+.creator-content-textarea.creator-content-textarea--slide-overflow {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 1px var(--color-error);
+}
+
+/* Per-slide character count and overflow list (below textarea) */
+.slide-overflow-indicator {
+  direction: ltr;
+  font-size: var(--caption-size);
+  color: var(--app-tc-secondary);
+  margin-top: var(--space-sm);
+  padding: var(--space-sm);
+  background: var(--app-input-bg);
+  border: 1px solid var(--app-input-border);
+  border-radius: var(--radius-sm);
+}
+
+.slide-overflow-indicator--has-overflow {
+  color: var(--color-error);
+}
+
+.slide-overflow-title {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-weight: 600;
+}
+
+.slide-overflow-list {
+  margin: 0;
+  list-style: none;
+}
+
+.slide-overflow-list li {
+  position: relative;
+  padding-inline-start: 0.5em;
+  margin-bottom: 5px;
+}
+
+.slide-overflow-item {
+  color: var(--app-tc-secondary);
+}
+
+.slide-overflow-item--over {
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+.slide-overflow-item--current {
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--app-tc-primary);
+  font-weight: 600;
+  margin-inline: calc(-1 * 0.5em);
+  padding-inline: 0.5em;
+  border-radius: var(--radius-sm);
+  border-inline-start: 3px solid var(--app-input-focus);
+}
+
+.style-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.control-group select {
+  font-size: var(--body-size);
+  max-width: 100%;
+}
+
+.control-group input[type="range"] {
+  width: 100%;
+}
+
+.checkbox-group label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-xs);
+  cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.alignment-buttons {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.btn-small {
+  padding: 6px var(--space-sm);
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .show-creator {
+    padding: var(--space-md);
+  }
+
+  .creator-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .creator-header h1 {
+    font-size: var(--title-size-sm);
+    text-align: center;
+  }
+
+  .creator-actions {
+    width: 100%;
+  }
+
+  .creator-actions .btn {
+    flex: 1;
+  }
+
+  .creator-section {
+    padding: var(--space-md);
+  }
+
+  .creator-section input[type="text"],
+  .creator-section textarea,
+  .control-group select {
+    font-size: 16px;
+  }
+
+  .alignment-buttons {
+    flex-wrap: wrap;
+  }
+
+  .alignment-buttons .btn-small {
+    flex: 1;
+    min-height: 44px;
+  }
+}

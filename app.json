@@ -1,0 +1,19 @@
+{
+  "package_id": "com.evenrealities.eyepromptg2",
+  "edition": "202601",
+  "name": "Eye Prompt G2",
+  "version": "1.0.3",
+  "min_app_version": "0.1.0",
+  "min_sdk_version": "0.0.10",
+  "tagline": "EyepromptG2",
+  "description": "Create and edit teleprompter shows, then present them on Even G2 glasses. Build slides with Hebrew text and custom styles, run presentations with timer and dual-panel display.",
+  "author": "",
+  "entrypoint": "index.html",
+  "supported_languages": ["en"],
+  "permissions": [
+    {
+      "name": "network",
+      "desc": "Required to fetch app data and call backend APIs for teleprompter content and runtime services."
+    }
+  ]
+}

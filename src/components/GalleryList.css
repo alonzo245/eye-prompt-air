@@ -1,0 +1,217 @@
+/* Gallery – Even OS 2.0: list/cards, empty state (Empty Page pattern) */
+
+.gallery-list {
+  padding: var(--space-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-xl);
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.gallery-header h1 {
+  margin: 0;
+  font-size: var(--title-size);
+  font-weight: 700;
+  color: var(--app-tc-primary);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gallery-actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+/* Empty state: arrow, intro title, description, button (Empty Page design) */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px var(--space-lg);
+  min-height: 280px;
+  background: var(--app-surface);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--app-border);
+}
+
+.empty-state-icon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: var(--space-md);
+  color: var(--app-tc-secondary);
+  opacity: 0.8;
+}
+
+.empty-state h2 {
+  margin: 0 0 var(--space-xs) 0;
+  font-size: var(--title-size-sm);
+  font-weight: 700;
+  color: var(--app-tc-primary);
+}
+
+.empty-state p {
+  margin: 0 0 var(--space-lg) 0;
+  font-size: var(--body-size);
+  color: var(--app-tc-secondary);
+  max-width: 320px;
+  line-height: 1.5;
+}
+
+.empty-state .btn {
+  margin-top: 0;
+}
+
+/* Cards grid */
+.shows-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.show-card {
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.show-card:hover {
+  border-color: var(--app-border-hover);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.show-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.show-card-header h3 {
+  margin: 0;
+  font-size: var(--title-size-sm);
+  font-weight: 600;
+  color: var(--app-tc-primary);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.show-date {
+  font-size: var(--caption-size);
+  color: var(--app-tc-secondary);
+  white-space: nowrap;
+}
+
+.show-card-info {
+  margin-bottom: var(--space-md);
+}
+
+.slide-count {
+  font-size: var(--body-size);
+  color: var(--app-tc-muted);
+}
+
+.show-card-actions {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: nowrap;
+}
+
+.btn-action {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 10px var(--space-xs);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--app-tc-secondary);
+  font-size: var(--body-size);
+}
+
+/* Error message – TC-Red, inline with forms guideline */
+.error-message {
+  background: rgba(255, 84, 84, 0.15);
+  border: 1px solid var(--color-error);
+  color: var(--color-error);
+  padding: var(--space-sm);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-lg);
+  text-align: right;
+  font-size: var(--body-size);
+}
+
+@media (max-width: 768px) {
+  .gallery-list {
+    padding: var(--space-md);
+  }
+
+  .gallery-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .gallery-header h1 {
+    white-space: normal;
+    font-size: var(--title-size-sm);
+    text-align: center;
+  }
+
+  .gallery-actions {
+    width: 100%;
+  }
+
+  .gallery-actions .btn {
+    flex: 1;
+  }
+
+  .show-card {
+    padding: var(--space-md);
+  }
+
+  .show-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+
+  .show-date {
+    white-space: normal;
+  }
+
+  .show-card-actions {
+    flex-wrap: wrap;
+  }
+
+  .btn-action {
+    min-height: 44px;
+    font-size: 16px;
+  }
+
+  .empty-state {
+    padding: 40px var(--space-md);
+    min-height: 200px;
+  }
+}

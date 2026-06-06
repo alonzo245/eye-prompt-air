@@ -1,0 +1,1 @@
+export { RealTextPrompter } from './RealTextPrompter';

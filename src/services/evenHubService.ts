@@ -34,9 +34,6 @@ export class EvenHubService {
   private onImuDataCallback:
     | ((imu: { x: number; y: number; z: number }) => void)
     | null = null;
-  private presentationSlideModeActive = false;
-  private presentationTemporarilyHidden = false;
-  private lastPresentationQuadrants: Uint8Array[] | null = null;
 
   // Four quadrant image containers (2×2 grid). SDK allows max 4 containers total, so no separate event/timer.
   private static readonly SLIDE_IMAGE_CONTAINER_IDS = [1, 2, 3, 4] as const;
@@ -450,9 +447,9 @@ export class EvenHubService {
         await new Promise((resolve) => setTimeout(resolve, 100));
         const ok = await this.writeQuadrantImages(imagesToSend);
         if (!ok) return false;
-        this.presentationSlideModeActive = true;
-        this.presentationTemporarilyHidden = false;
-        this.lastPresentationQuadrants = imagesToSend;
+        // this.presentationSlideModeActive = true;
+        // this.presentationTemporarilyHidden = false;
+        // this.lastPresentationQuadrants = imagesToSend;
         logger.deviceSuccess("All 4 quadrant images updated on glasses");
         return true;
       }
@@ -468,9 +465,9 @@ export class EvenHubService {
         await new Promise((resolve) => setTimeout(resolve, 200));
         const ok = await this.writeQuadrantImages(imagesToSend);
         if (!ok) return false;
-        this.presentationSlideModeActive = true;
-        this.presentationTemporarilyHidden = false;
-        this.lastPresentationQuadrants = imagesToSend;
+        // this.presentationSlideModeActive = true;
+        // this.presentationTemporarilyHidden = false;
+        // this.lastPresentationQuadrants = imagesToSend;
         return true;
       }
 
@@ -628,9 +625,9 @@ export class EvenHubService {
         logger.deviceSuccess("All 4 quadrant images sent to glasses!");
         if (resolveInitRef) resolveInitRef(true);
         this.initializationPromise = null;
-        this.presentationSlideModeActive = true;
-        this.presentationTemporarilyHidden = false;
-        this.lastPresentationQuadrants = imagesToSend;
+        // this.presentationSlideModeActive = true;
+        // this.presentationTemporarilyHidden = false;
+        // this.lastPresentationQuadrants = imagesToSend;
 
         const quadrantArrays = imagesToSend.map((bmp) =>
           EvenHubService.imageDataForBridge(bmp),
@@ -726,60 +723,33 @@ export class EvenHubService {
     return true;
   }
 
-  private isDoubleTapFromEvent(event: EvenHubEvent): boolean {
-    const readType = (raw?: Record<string, unknown>): number | null => {
-      if (!raw) return null;
-      const eventTypeRaw = raw.eventType ?? (raw as any).event_type;
-      const et =
-        typeof eventTypeRaw === "number" ? eventTypeRaw : Number(eventTypeRaw);
-      return Number.isFinite(et) ? Math.floor(et) : null;
-    };
-    const sys = readType(
-      event.sysEvent as unknown as Record<string, unknown> | undefined,
-    );
-    const text = readType(
-      event.textEvent as unknown as Record<string, unknown> | undefined,
-    );
-    const list = readType(
-      event.listEvent as unknown as Record<string, unknown> | undefined,
-    );
-    return (
-      sys === OsEventTypeList.DOUBLE_CLICK_EVENT ||
-      text === OsEventTypeList.DOUBLE_CLICK_EVENT ||
-      list === OsEventTypeList.DOUBLE_CLICK_EVENT ||
-      sys === 3 ||
-      text === 3 ||
-      list === 3
-    );
-  }
+  // private async toggleTemporaryPresentationVisibility(): Promise<void> {
+  //   if (
+  //     !this.bridge ||
+  //     !this.startupPageCreated ||
+  //     !this.lastPresentationQuadrants
+  //   )
+  //     return;
 
-  private async toggleTemporaryPresentationVisibility(): Promise<void> {
-    if (
-      !this.bridge ||
-      !this.startupPageCreated ||
-      !this.lastPresentationQuadrants
-    )
-      return;
+  //   if (this.presentationTemporarilyHidden) {
+  //     const ok = await this.writeQuadrantImages(this.lastPresentationQuadrants);
+  //     if (ok) {
+  //       this.presentationTemporarilyHidden = false;
+  //       logger.deviceSuccess("Presentation restored after temporary hide");
+  //     }
+  //     return;
+  //   }
 
-    if (this.presentationTemporarilyHidden) {
-      const ok = await this.writeQuadrantImages(this.lastPresentationQuadrants);
-      if (ok) {
-        this.presentationTemporarilyHidden = false;
-        logger.deviceSuccess("Presentation restored after temporary hide");
-      }
-      return;
-    }
-
-    const blank = this.createBlankBmp(
-      EvenHubService.SLIDE_IMAGE_WIDTH,
-      EvenHubService.SLIDE_IMAGE_HEIGHT,
-    );
-    const ok = await this.writeQuadrantImages([blank, blank, blank, blank]);
-    if (ok) {
-      this.presentationTemporarilyHidden = true;
-      logger.deviceSuccess("Presentation temporarily hidden");
-    }
-  }
+  //   const blank = this.createBlankBmp(
+  //     EvenHubService.SLIDE_IMAGE_WIDTH,
+  //     EvenHubService.SLIDE_IMAGE_HEIGHT,
+  //   );
+  //   const ok = await this.writeQuadrantImages([blank, blank, blank, blank]);
+  //   if (ok) {
+  //     this.presentationTemporarilyHidden = true;
+  //     logger.deviceSuccess("Presentation temporarily hidden");
+  //   }
+  // }
 
   /**
    * Update slide content by re-rendering to 4 quadrants and updating all image data
@@ -1482,9 +1452,9 @@ export class EvenHubService {
     this.rtpSlideMode = false;
     this.rtpSlides = [];
     this.rtpSlideIndex = 0;
-    this.presentationSlideModeActive = false;
-    this.presentationTemporarilyHidden = false;
-    this.lastPresentationQuadrants = null;
+    // this.presentationSlideModeActive = false;
+    // this.presentationTemporarilyHidden = false;
+    // this.lastPresentationQuadrants = null;
     await this.disableImu();
     if (!this.bridge) return true;
     try {
@@ -1514,9 +1484,9 @@ export class EvenHubService {
     }
 
     try {
-      this.presentationSlideModeActive = false;
-      this.presentationTemporarilyHidden = false;
-      this.lastPresentationQuadrants = null;
+      // this.presentationSlideModeActive = false;
+      // this.presentationTemporarilyHidden = false;
+      // this.lastPresentationQuadrants = null;
       await this.disableImu();
       logger.device("Shutting down container on glasses...");
       const success = await this.bridge.shutDownPageContainer(0);
@@ -1552,9 +1522,9 @@ export class EvenHubService {
     this.onEventCallback = null;
     this.onImuDataCallback = null;
     this.imuEnabled = false;
-    this.presentationSlideModeActive = false;
-    this.presentationTemporarilyHidden = false;
-    this.lastPresentationQuadrants = null;
+    // this.presentationSlideModeActive = false;
+    // this.presentationTemporarilyHidden = false;
+    // this.lastPresentationQuadrants = null;
   }
 }
 

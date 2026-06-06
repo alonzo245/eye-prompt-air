@@ -88,7 +88,7 @@ export function createPresentationEventHandler(deps: {
     }
 
     if (event.textEvent) {
-      handleTextEvent(event.textEvent, onNextSlide, onPreviousSlide);
+      handleTextEvent(event.textEvent, onNextSlide);
       return;
     }
 
@@ -107,17 +107,17 @@ function handleSysEvent(
   const eventTypeName = getEventTypeName(eventType);
 
   const eventTypeNum =
-    typeof eventType === "number"
-      ? eventType
-      : parseInt(String(eventType), 10);
+    typeof eventType === "number" ? eventType : parseInt(String(eventType), 10);
 
   logger.device("📱 Ring system event", {
     eventType,
     eventTypeName,
     rawType: typeof eventType,
     eventTypeNum,
-    isScrollTop: eventType === 1 || String(eventType) === "1" || eventTypeNum === 1,
-    isScrollBottom: eventType === 2 || String(eventType) === "2" || eventTypeNum === 2,
+    isScrollTop:
+      eventType === 1 || String(eventType) === "1" || eventTypeNum === 1,
+    isScrollBottom:
+      eventType === 2 || String(eventType) === "2" || eventTypeNum === 2,
   });
 
   if (
@@ -160,13 +160,10 @@ function handleSysEvent(
 function handleTextEvent(
   textEvent: NonNullable<EvenHubEvent["textEvent"]>,
   onNextSlide: () => void,
-  onPreviousSlide: () => void,
 ): void {
   const eventType = textEvent.eventType;
   const eventTypeNum =
-    typeof eventType === "number"
-      ? eventType
-      : parseInt(String(eventType), 10);
+    typeof eventType === "number" ? eventType : parseInt(String(eventType), 10);
 
   logger.device("📝 Text container event", {
     containerID: textEvent.containerID,

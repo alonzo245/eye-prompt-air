@@ -21,7 +21,7 @@
     "status": "evenhub status",
     "help": "evenhub help",
     "version": "evenhub version",
-    "pack": "node -e \"const fs=require('fs');['dist/fonts','dist/assets'].forEach(p=>{if(fs.existsSync(p))fs.readdirSync(p).forEach(f=>fs.copyFileSync(p+'/'+f,'dist/'+f));});\" && evenhub pack app.json ./dist --output eye-prompt-g2.ehpk",
+    "pack": "node -e \"const fs=require('fs');['dist/fonts','dist/assets'].forEach(p=>{if(fs.existsSync(p))fs.readdirSync(p).forEach(f=>fs.copyFileSync(p+'/'+f,'dist/'+f));});\" && evenhub pack app.json ./dist --output eye-prompt-air.ehpk",
     "init": "evenhub init",
     "emulator": "evenhub-simulator http://192.168.68.107:3000"
   },

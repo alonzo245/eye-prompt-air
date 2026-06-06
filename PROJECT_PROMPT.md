@@ -7,12 +7,12 @@ Build **Eye Prompt**, a professional teleprompter application for Even Realities
 ## Core Requirements
 
 ### 1. Content Management System
+
 - **Show Creation**: Allow users to create "shows" from text input
   - Text input with automatic paragraph splitting (split on double newlines)
   - Each paragraph becomes a separate slide/page
   - Show naming with automatic timestamp suffix
   - Save shows locally using EvenHub SDK storage API (`setLocalStorage`/`getLocalStorage`)
-  
 - **Show Gallery**: Display list of saved shows
   - Show name, creation date
   - Preview button to view show content
@@ -21,11 +21,11 @@ Build **Eye Prompt**, a professional teleprompter application for Even Realities
   - Support for text-only shows (no images)
 
 ### 2. Text Rendering & Display
+
 - **Text-to-Glasses Display**: Render text content on G2 glasses using EvenHub SDK text containers
   - Use `createStartUpPageContainer` for initial page setup
   - Use `rebuildPageContainer` for navigation between slides
   - Use `textContainerUpgrade` for dynamic text updates (e.g., timer)
-  
 - **Text Styling Options**:
   - Font selection (support Hebrew fonts: Rubik, Haim Design, Noto Sans Hebrew, etc.)
   - Font size control (adjustable during presentation: 12-300px)
@@ -34,26 +34,24 @@ Build **Eye Prompt**, a professional teleprompter application for Even Realities
   - Line height control (0.5x to 1.3x spacing)
   - Text opacity control (30%, 60%, 100% - toggle during presentation)
   - Text inversion (white text on black background option)
-  
 - **Safe Viewing Area**: Position text to avoid glasses frame obstruction
   - Reserve top 25% of display area (Y position: 50+ pixels from top)
   - Canvas size: 576x136px (or G2 equivalent)
   - Coordinate system: (0,0) at top-left, X right, Y down
 
 ### 3. Presentation Mode
-- **Start Presentation**: 
+
+- **Start Presentation**:
   - Select a show from gallery
   - Initialize glasses display with first slide using `createStartUpPageContainer`
   - Enter fullscreen/presentation mode
   - Lock screen orientation (landscape)
-  
 - **Navigation Controls**:
   - Tap gesture: Advance to next slide
   - Double tap: Cycle through display modes (both eyes / left only / right only)
   - Long press: Pause/resume presentation
   - Use `onEvenHubEvent` to listen for system events/gestures
   - Use `rebuildPageContainer` to update display with new slide content
-  
 - **Display Modes**:
   - Both eyes: Show content on both displays
   - Left eye only: Show on left display
@@ -61,6 +59,7 @@ Build **Eye Prompt**, a professional teleprompter application for Even Realities
   - Implement via separate containers or SDK display mode API
 
 ### 4. Timer Feature
+
 - **Count-Up Timer**: Display elapsed time during presentation
   - Show timer in top-left corner of glasses display (X: 20, Y: 20)
   - Format: MM:SS (e.g., "05:23")
@@ -71,6 +70,7 @@ Build **Eye Prompt**, a professional teleprompter application for Even Realities
   - Auto-reset when entering/exiting presentation mode
 
 ### 5. Brightness Control
+
 - **Screen Brightness**: Allow users to dim the app screen
   - Right 30% of screen is invisible tap area
   - Tap at bottom = dimmest (70% opacity overlay)
@@ -79,6 +79,7 @@ Build **Eye Prompt**, a professional teleprompter application for Even Realities
   - Implement as CSS overlay on web view if SDK doesn't provide native control
 
 ### 6. R1 Ring Integration
+
 - **Ring Gesture Support**:
   - Listen for ring gestures via `onEvenHubEvent` system events
   - Map gestures to navigation:
@@ -91,11 +92,13 @@ Build **Eye Prompt**, a professional teleprompter application for Even Realities
 ## Technical Specifications
 
 ### 2026 Tooling Update
+
 - **SDK 0.0.9**: launch source listening (`appMenu` / `glassesMenu`), max 12 containers, max 8 text containers, max image size 288x144, IMU control/events, and fixed border radius spelling (`borderRadius` replacing old `borderRdaius`).
 - **Simulator 0.6.2**: supports 12-container flows, 288x144 image bounds, launch source simulation, and IMU simulation.
 - **CLI 0.1.10+**: packaging/validation updates for new SDK configs.
 
 ### Technology Stack
+
 - **Framework**: React with TypeScript (or Vue.js)
 - **Build Tool**: Vite
 - **SDK**: `@evenrealities/even_hub_sdk` (v0.0.9+)
@@ -103,18 +106,25 @@ Build **Eye Prompt**, a professional teleprompter application for Even Realities
 - **Storage**: EvenHub SDK storage API + browser localStorage backup
 
 ### SDK Integration
+
 ```typescript
-import { waitForEvenAppBridge } from '@evenrealities/even_hub_sdk';
+import { waitForEvenAppBridge } from "@evenrealities/even_hub_sdk";
 
 // Initialize SDK bridge
 const bridge = await waitForEvenAppBridge();
 
 // Create containers for glasses display
 await bridge.createStartUpPageContainer({
-  containerTotalNum: 1-12, // Max 12 containers (SDK 0.0.9+)
-  textObject: [/* TextContainerProperty[] */],
-  imageObject: [/* ImageContainerProperty[] */],
-  listObject: [/* ListContainerProperty[] */]
+  containerTotalNum: 1 - 12, // Max 12 containers (SDK 0.0.9+)
+  textObject: [
+    /* TextContainerProperty[] */
+  ],
+  imageObject: [
+    /* ImageContainerProperty[] */
+  ],
+  listObject: [
+    /* ListContainerProperty[] */
+  ],
 });
 
 // Listen for events
@@ -126,11 +136,12 @@ bridge.onEvenHubEvent((event) => {
 await bridge.textContainerUpgrade({
   containerID: number,
   containerName: string,
-  content: string // Max 2000 chars
+  content: string, // Max 2000 chars
 });
 ```
 
 ### Key Constraints
+
 - **Container Limits**: Maximum 12 containers per page (SDK 0.0.9+)
 - **Event Capture**: Only one container can have `isEventCapture=1`
 - **Text Length**: Max 2000 characters per text container upgrade
@@ -143,6 +154,7 @@ await bridge.textContainerUpgrade({
 - **Canvas Size**: 576x288px (or G2 equivalent)
 
 ### Development Workflow
+
 ```bash
 # Start dev server
 npm run dev
@@ -157,18 +169,20 @@ npx evenhub qr --port 5173
 npm run build
 
 # Pack for EvenHub
-npx evenhub pack app.json ./dist --output eye-prompt-g2.ehpk
+npx evenhub pack app.json ./dist --output eye-prompt-air.ehpk
 ```
 
 ## UI/UX Requirements
 
 ### Design System
+
 - **Theme**: Dark theme (black background, grey text)
 - **Language**: Hebrew/RTL support (right-to-left text direction)
 - **Typography**: Support Hebrew fonts (Rubik, Haim Design, Noto Sans Hebrew)
 - **Responsive**: Optimize for mobile, tablet, desktop web views
 
 ### Key Screens
+
 1. **Gallery List Screen**
    - List of saved shows
    - "Create New Show" button
@@ -218,11 +232,12 @@ Ensure these features from the original G1 Flutter app are implemented:
 ✅ Text opacity control  
 ✅ Screen brightness control  
 ✅ Hebrew/RTL support  
-✅ Dark theme  
+✅ Dark theme
 
 ## Additional G2/R1 Enhancements
 
 Consider these improvements for G2/R1:
+
 - Native text containers (better performance than pre-rendered images)
 - R1 ring gesture navigation (more discrete than screen taps)
 - Better event handling via SDK event system
@@ -234,6 +249,7 @@ Consider these improvements for G2/R1:
 ## Success Criteria
 
 The app is complete when:
+
 1. ✅ Users can create shows from text input
 2. ✅ Shows are saved and can be loaded from storage
 3. ✅ Shows can be presented on G2 glasses with proper text rendering
@@ -250,6 +266,7 @@ The app is complete when:
 Original G1 app location: `/Users/alonalush/research/eye_prompt`
 
 Key files to reference:
+
 - `lib/services/bmp_generator.dart` - Text rendering logic
 - `lib/views/features/upload_gallery_form_page.dart` - Show creation UI
 - `lib/views/features/bmp_page.dart` - Presentation mode
@@ -258,9 +275,10 @@ Key files to reference:
 ## Getting Started
 
 1. Initialize project:
+
 ```bash
-npm create vite@latest eye-prompt-g2 -- --template react-ts
-cd eye-prompt-g2
+npm create vite@latest eye-prompt-air -- --template react-ts
+cd eye-prompt-air
 npm install @evenrealities/even_hub_sdk
 npm install -D @evenrealities/evenhub-cli
 npx evenhub init
